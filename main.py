@@ -2,13 +2,11 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import logging
 
-# Initialize FastAPI app
 app = FastAPI(title="AI Voice Assistant")
 
-# Set up basic logging
 logging.basicConfig(level=logging.INFO)
 
-# Pydantic model for request payload
+
 class InputText(BaseModel):
     text: str
 
@@ -29,10 +27,9 @@ def detect_intent(text: str) -> str:
 
 @app.post("/predict")
 async def predict(input_text: InputText):
-    # Perform intent recognition
     intent = detect_intent(input_text.text)
     
-    # Log the request and detected intent
+   
     logging.info(f"Received text: {input_text.text} | Detected intent: {intent}")
     
     # (Optional) Save the interaction to a database (MongoDB/PostgreSQL)
